@@ -1,28 +1,7 @@
-const { compare } = require('odiff-bin');
 const { PNG } = require('pngjs');
 const pixelmatch = require('@rafal.szemraj/pixelmatch');
 const glob = require('glob-promise');
 const fs = require('fs-extra');
-
-const runOdiffMatch = async (i, diff, options) => {
-  const startTime = new Date()
-  const { match, reason, diffCount, diffPercentage } = await compare(
-    `images/${i}/master.png`,
-    `images/${i}/branch.png`,
-    `images/${i}/${diff}.png`,
-    { ...options, antialiasing: true }
-  );
-
-
-  return match ? { match: true } : {
-    match,
-    diffCount,
-    diffPercentage: Math.ceil((diffPercentage ?? 0) * 100) / 100,
-    threshold: options.threshold,
-    executionTime: new Date() - startTime,
-  }
-
-}
 
 const runPixelMatch = async (i, diff, options) => {
 
@@ -59,36 +38,31 @@ async function main() {
 
   }
 
-  const output = []
   for(const i of [1,2,3,4,5,6,7,8,9]) {
 
-    const set = {
-      set: i,
-      runs: []
-    }
 
-    for(const t of [.1,.2,.3,.4,.5,.6,.7,.8,.9]) {
+    for(const t of [0.01, 0.1, 0.2]) {
 
-      const odiff_result = await runOdiffMatch(i, `diff_odiff_${t}`, {threshold: t});
-      const pixelmatch_result = await runPixelMatch(i, `diff_pm_${t}`, {threshold: t});
+      for (const shift of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]) {
 
-      if(!odiff_result.match && !pixelmatch_result.match) {
-
-        set.runs.push({
+        await runPixelMatch(i, `diff_${t}`, {
           threshold: t,
-          odiff: odiff_result,
-          pixelmatch: pixelmatch_result,
+          horizontalShiftPixels: 0,
+          verticalShiftPixels: 0,
+          includeAA: false,
         })
+        await runPixelMatch(i, `diff_pm_${t}_${shift}x${shift}`, {
+          threshold: t,
+          horizontalShiftPixels: shift,
+          verticalShiftPixels: shift,
+          includeAA: true
+        });
+
+        console.log(`img set ${i}, threshold ${t}, shift: ${shift}x${shift} done...`)
+
       }
-
-      console.log(`img set ${i}, threshold ${t} done...`)
-
     }
-
-    output.push(set)
   }
-    fs.writeJsonSync("out.json", output)
-
 }
 
 

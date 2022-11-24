@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@rafal.szemraj/pixelmatch@5.3.0":
+  version "5.3.0"
+  resolved "https://artifacts.sys.dom:443/artifactory/api/npm/npm/@rafal.szemraj/pixelmatch/-/pixelmatch-5.3.0.tgz#7a7d29e2249050f328bce230135138912a61cbce"
+  integrity sha512-NN7hPydfVYjTIeN6HQWmEj1umbyhEBUDSr0PNUT20q4ETD7IAwKCt9vXw8plj4929Sde05zmO5FwT+Y1Qw+gKA==
+  dependencies:
+    pngjs "^6.0.0"
+
 "@types/glob@^7.2.0":
   version "7.2.0"
   resolved "https://artifacts.sys.dom:443/artifactory/api/npm/npm/@types/glob/-/glob-7.2.0.tgz"
@@ -109,13 +116,6 @@ once@^1.3.0:
   integrity sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==
   dependencies:
     wrappy "1"
-
-pixelmatch@5.3.0:
-  version "5.3.0"
-  resolved "https://artifacts.sys.dom:443/artifactory/api/npm/npm/pixelmatch/-/pixelmatch-5.3.0.tgz"
-  integrity sha512-o8mkY4E/+LNUf6LzX96ht6k6CEDi65k9G2rjMtBe9Oo+VPKSvl+0GKHuH/AlG+GA5LPG/i5hrekkxUc3s2HU+Q==
-  dependencies:
-    pngjs "^6.0.0"
 
 pngjs@^6.0.0:
   version "6.0.0"
